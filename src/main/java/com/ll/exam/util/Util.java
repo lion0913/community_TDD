@@ -20,9 +20,9 @@ public class Util {
             }
         }
 
-        public static Object toObj(String jsonStr, Class cls, Object defaultVal) {
+        public static <T> T toObj(String jsonStr, Class<T> cls, T defaultVal) {
             try {
-                return om.readValue(jsonStr, cls);
+                return (T)om.readValue(jsonStr, cls);
             } catch (JsonMappingException e) {
                 return defaultVal;
             } catch (JsonProcessingException e) {

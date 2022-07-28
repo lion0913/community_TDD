@@ -31,7 +31,7 @@ public class AppTest {
         ArticleDto articleDto = new ArticleDto(1, "제목", "내용");
         String jsonStr = Util.json.toJson(articleDto, "");
 
-        ArticleDto articleDtoFromJson = (ArticleDto) Util.json.toObj(jsonStr, ArticleDto.class, null);
+        ArticleDto articleDtoFromJson = Util.json.toObj(jsonStr, ArticleDto.class, null);
 
         assertThat(articleDto).isEqualTo(articleDtoFromJson);
 
