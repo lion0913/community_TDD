@@ -1,9 +1,13 @@
 package com.ll.exam.util;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ll.exam.article.dto.ArticleDto;
+
+import java.util.List;
+import java.util.Map;
 
 public class Util {
     public static class json {
@@ -20,14 +24,26 @@ public class Util {
             }
         }
 
-        public static <T> T toObj(String jsonStr, Class<T> cls, T defaultVal) {
+
+        public static <T> T toObj(String jsonStr, Class<T> typeReference, T defaultVal) {
             try {
-                return (T)om.readValue(jsonStr, cls);
+                return (T)om.readValue(jsonStr, typeReference);
             } catch (JsonMappingException e) {
                 return defaultVal;
             } catch (JsonProcessingException e) {
                 return defaultVal;
             }
         }
+
+        public static <T> T toObj(String jsonStr, TypeReference<T> typeReference, T defaultVal) {
+            try {
+                return (T)om.readValue(jsonStr, typeReference);
+            } catch (JsonMappingException e) {
+                return defaultVal;
+            } catch (JsonProcessingException e) {
+                return defaultVal;
+            }
+        }
+
     }
 }
