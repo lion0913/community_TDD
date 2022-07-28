@@ -6,10 +6,7 @@ import com.ll.exam.util.Util;
 import org.assertj.core.util.VisibleForTesting;
 import org.junit.jupiter.api.Test;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -92,6 +89,7 @@ public class AppTest {
 
         assertThat(articleDtoMapFromJson).isEqualTo(articleDtoMap);
     }
+
 
 }
 

@@ -6,6 +6,7 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ll.exam.article.dto.ArticleDto;
 
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -45,5 +46,20 @@ public class Util {
             }
         }
 
+    }
+
+    public static Map<String, Object> mapOf(Object... args) {
+        Map<String, Object> map = new LinkedHashMap<>();
+
+        int dataSize = args.length/2;
+
+        for(int i = 0; i < dataSize; i++) {
+            int keyIndex = i*2+0;
+            int valueIndex = i*2+1;
+
+            map.put((String)args[keyIndex], args[valueIndex]);
+        }
+
+        return map;
     }
 }
