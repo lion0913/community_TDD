@@ -1,6 +1,8 @@
 package com.ll.exam.chat;
 
 
+import com.ll.exam.chat.dto.ChatRoomDto;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.IntStream;
@@ -31,5 +33,10 @@ public class ChatRoomRepository {
         datum.add(newChatRoomDto);
 
         return id;
+    }
+
+
+    public List<ChatRoomDto> findAll() {
+        return datum;
     }
 }
