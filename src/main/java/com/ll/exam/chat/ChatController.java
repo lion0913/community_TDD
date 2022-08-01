@@ -197,6 +197,34 @@ public class ChatController {
         rq.successJson(newChatMessageId);
     }
 
+    public void modifyMessageAjax(Rq rq) {
+        long id = rq.getLongPathValueByIndex(0, -1);
+
+        if (id == -1) {
+            rq.failJson("채팅방 번호를 입력해주세요.");
+            return;
+        }
+
+        ChatMessageDto chatMessageDto = chatService.findByMsgId(id);
+
+        if (chatMessageDto == null) {
+            rq.failJson("존재하지 않는 채팅방 입니다.");
+            return;
+        }
+
+        String body = rq.getParam("body", "");
+
+        if (body.trim().length() == 0) {
+            rq.historyBack("내용을 입력해주세요.");
+            return;
+        }
+
+        chatService.modifyMessage(id, body);
+
+        rq.json(id, "S-1", "%d번 메세지가 수정되었습니다.".formatted(id));
+    }
+
+
 
     public void showRoom(Rq rq) {
         long id = rq.getLongPathValueByIndex(0, -1);

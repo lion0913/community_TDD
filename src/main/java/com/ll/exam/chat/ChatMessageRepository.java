@@ -45,7 +45,7 @@ public class ChatMessageRepository {
                 .collect(Collectors.toList());
     }
 
-    public ChatMessageDto findByMsgId(long msgId) {
+    public ChatMessageDto findById(long msgId) {
         for(ChatMessageDto chatMessage : datum) {
             if(chatMessage.getId() == msgId) {
                 return chatMessage;
@@ -63,11 +63,21 @@ public class ChatMessageRepository {
     }
 
     public void deleteMessage(long msgId) {
-        ChatMessageDto chatMessageDto = findByMsgId(msgId);
+        ChatMessageDto chatMessageDto = findById(msgId);
 
         if(chatMessageDto == null) {
             return;
         }
         datum.remove(chatMessageDto);
+    }
+
+    public void modifyMessage(long id, String body) {
+        ChatMessageDto chatMessageDto = findById(id);
+
+        if (chatMessageDto == null) {
+            return;
+        }
+
+        chatMessageDto.setBody(body);
     }
 }
