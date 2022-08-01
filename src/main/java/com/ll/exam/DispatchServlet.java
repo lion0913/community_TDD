@@ -43,8 +43,10 @@ public class DispatchServlet extends HttpServlet {
                         articleController.getArticles(rq);
                         break;
                     case "/usr/chat/createRoom":
-                        chatController.createRoom(rq);
+                        chatController.showCreateRoom(rq);
                         break;
+                    case "/usr/chat/modifyRoom":
+                        chatController.showModifyRoom(rq);
                     case "/usr/chat/roomList":
                         chatController.showRoomList(rq);
                         break;
@@ -60,6 +62,9 @@ public class DispatchServlet extends HttpServlet {
                         break;
                     case "/usr/chat/createRoom":
                         chatController.doCreateRoom(rq);
+                        break;
+                    case "/usr/chat/modifyRoom":
+                        chatController.doModifyRoom(rq);
                         break;
                 }
                 break;
