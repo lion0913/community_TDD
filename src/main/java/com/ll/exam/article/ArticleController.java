@@ -133,13 +133,18 @@ public class ArticleController {
     }
 
     public void getArticles(Rq rq) {
-        ResultEntity<List<ArticleDto>> result = new ResultEntity<>();
-        List<ArticleDto> list = articleService.findAll();
+        long fromId = rq.getLongParam("fromId", -1);
 
-        result.setResultCode("S-1");
-        result.setMsg("성공");
-        result.setData(list);
-        rq.json(result);
+        List<ArticleDto> articleDtos = null;
+
+        if ( fromId == -1 ) {
+            articleDtos = articleService.findAll();
+        }
+        else {
+            articleDtos = articleService.findIdGreaterThan(fromId);
+        }
+
+        rq.successJson(articleDtos);
     }
 
 

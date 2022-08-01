@@ -160,4 +160,31 @@ public class Rq {
         String jsonStr = Util.json.toJson(data, "");
         println(jsonStr);
     }
+
+
+    public void json(Object data, String resultCode, String msg) {
+        json(new ResultEntity<>(resultCode, msg, data));
+    }
+
+    public long getLongParam(String paramName, long defaultValue) {
+        String value = req.getParameter(paramName);
+
+        if (value == null) {
+            return defaultValue;
+        }
+
+        try {
+            return Long.parseLong(value);
+        } catch (NumberFormatException e) {
+            return defaultValue;
+        }
+    }
+
+    public void successJson(Object data) {
+        json(data, "S-1", "성공");
+    }
+
+    public void failJson(Object data) {
+        json(data, "F-1", "실패");
+    }
 }
