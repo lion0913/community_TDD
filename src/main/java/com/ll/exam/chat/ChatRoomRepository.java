@@ -1,10 +1,12 @@
 package com.ll.exam.chat;
 
 
+import com.ll.exam.chat.dto.ChatMessageDto;
 import com.ll.exam.chat.dto.ChatRoomDto;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 public class ChatRoomRepository {
@@ -19,7 +21,7 @@ public class ChatRoomRepository {
     }
 
     private static void makeTestData() {
-        IntStream.rangeClosed(1, 10).forEach(id -> {
+        IntStream.rangeClosed(1, 2).forEach(id -> {
             String title = "이름%d".formatted(id);
             String body = "주제%d".formatted(id);
             create(title, body);

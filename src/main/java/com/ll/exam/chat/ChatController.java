@@ -1,6 +1,7 @@
 package com.ll.exam.chat;
 
 import com.ll.exam.Rq;
+import com.ll.exam.chat.dto.ChatMessageDto;
 import com.ll.exam.chat.dto.ChatRoomDto;
 
 import java.util.List;
@@ -119,25 +120,27 @@ public class ChatController {
     public void showRoom(Rq rq) {
         long id = rq.getLongPathValueByIndex(0, -1);
 
-        if ( id == -1 ) {
+        if (id == -1) {
             rq.historyBack("번호를 입력해주세요.");
             return;
         }
 
-        ChatRoomDto chatRoom = chatService.findRoomById(id);
+        ChatRoomDto chatRoomDto = chatService.findRoomById(id);
+        List<ChatMessageDto> chatMessageDtos = chatService.findMessagesByRoomId(chatRoomDto.getId());
 
-        if ( chatRoom == null ) {
+        if (chatRoomDto == null) {
             rq.historyBack("존재하지 않는 채팅방 입니다.");
             return;
         }
 
-        rq.setAttr("room", chatRoom);
+        rq.setAttr("room", chatRoomDto);
+        rq.setAttr("messages", chatMessageDtos);
+
         rq.view("usr/chat/room");
     }
 
     public void doWriteMessage(Rq rq) {
         long roomId = rq.getLongPathValueByIndex(0, -1);
-
 
         if (roomId == -1) {
             rq.historyBack("채팅방 번호를 입력해주세요.");
@@ -153,8 +156,6 @@ public class ChatController {
 
         String body = rq.getParam("body", "");
 
-//        rq.println("채팅방 번호 : %d<br />".formatted(roomId));
-//        rq.println("채팅메세지 : %s<br />".formatted(body));
         if (body.trim().length() == 0) {
             rq.historyBack("내용을 입력해주세요.");
             return;
