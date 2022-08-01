@@ -44,4 +44,12 @@ public class ChatMessageRepository {
                 .filter(chatMessageDto -> chatMessageDto.getRoomId() == roomId)
                 .collect(Collectors.toList());
     }
+
+    public List<ChatMessageDto> findByRoomIdGreaterThan(long roomId, long fromId) {
+        return datum
+                .stream()
+                .filter(chatMessageDto -> chatMessageDto.getRoomId() == roomId)
+                .filter(chatMessageDto -> chatMessageDto.getId() > fromId)
+                .collect(Collectors.toList());
+    }
 }

@@ -34,12 +34,16 @@ public class ChatService {
         chatRoomRepository.deleteRoom(id);
     }
 
-    public void writeMessage(long roomId, String body) {
-        chatMessageRepository.write(roomId, body);
+    public long writeMessage(long roomId, String body) {
+        return chatMessageRepository.write(roomId, body);
     }
 
     public List<ChatMessageDto> findMessagesByRoomId(long id) {
         return chatMessageRepository.findByRoomId(id);
+    }
+
+    public List<ChatMessageDto> findMessagesByRoomIdGreaterThan(long roomId, long fromId) {
+        return chatMessageRepository.findByRoomIdGreaterThan(roomId, fromId);
     }
 }
 

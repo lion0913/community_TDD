@@ -53,10 +53,20 @@ public class DispatchServlet extends HttpServlet {
                     case "/usr/chat/roomList":
                         chatController.showRoomList(rq);
                         break;
+                    case "/usr/chat/roomManual":
+                        chatController.showRoomManual(rq);
+                        break;
+                    case "/usr/chat/getMessages":
+                        chatController.getMessages(rq);
+                        break;
+
                 }
                 break;
             case "POST":
                 switch (rq.getActionPath()) {
+                    case "/usr/chat/writeMessageAjax":
+                        chatController.doWriteMessageAjax(rq);
+                        break;
                     case "/usr/chat/writeMessage":
                         chatController.doWriteMessage(rq);
                         break;
