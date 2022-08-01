@@ -265,6 +265,29 @@ public class ChatController {
 
         chatService.deleteMessage(msgId);
 
+//        rq.json(msgId, "S-1", "데이터가 삭제되었습니다.");
         rq.replace("/usr/chat/room/%d".formatted(roomId), "%d번 메세지가 삭제되었습니다.".formatted(msgId));
+    }
+
+    public void deleteMessageAjax(Rq rq) {
+        long msgId = rq.getLongPathValueByIndex(0, -1);
+
+        if (msgId == -1) {
+            rq.failJson("존재하지 않는 채팅입니다.");
+            return;
+        }
+        ChatMessageDto chatMessageDto = chatService.findByMsgId(msgId);
+
+        if(chatMessageDto == null) {
+            rq.historyBack("존재하지 않는 채팅입니다.");
+            return;
+        }
+
+        long roomId = chatMessageDto.getRoomId();
+
+        chatService.deleteMessage(msgId);
+
+        rq.json(msgId, "S-1", "%d번 데이터가 삭제되었습니다.".formatted(msgId));
+//        rq.replace("/usr/chat/room/%d".formatted(roomId), "%d번 메세지가 삭제되었습니다.".formatted(msgId));
     }
 }
