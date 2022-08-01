@@ -26,6 +26,10 @@ public class ChatService {
         return chatRoomRepository.findById(id);
     }
 
+    public ChatMessageDto findByMsgId(long id) {
+        return chatMessageRepository.findByMsgId(id);
+    }
+
     public void modifyRoom(long id, String title, String body) {
         chatRoomRepository.modify(id, title, body);
     }
@@ -44,6 +48,10 @@ public class ChatService {
 
     public List<ChatMessageDto> findMessagesByRoomIdGreaterThan(long roomId, long fromId) {
         return chatMessageRepository.findByRoomIdGreaterThan(roomId, fromId);
+    }
+
+    public void deleteMessage(long msgId) {
+        chatMessageRepository.deleteMessage(msgId);
     }
 }
 

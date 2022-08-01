@@ -221,7 +221,6 @@ public class ChatController {
     }
 
     public void doWriteMessage(Rq rq) {
-        System.out.println("??????");
         long roomId = rq.getLongPathValueByIndex(0, -1);
 
         if (roomId == -1) {
@@ -246,5 +245,26 @@ public class ChatController {
         chatService.writeMessage(roomId, body);
 
         rq.replace("/usr/chat/room/%d".formatted(roomId), "메세지가 등록되었습니다.");
+    }
+
+    public void deleteMessage(Rq rq) {
+        long msgId = rq.getLongPathValueByIndex(0, -1);
+
+        if (msgId == -1) {
+            rq.historyBack("존재하지 않는 채팅입니다.");
+            return;
+        }
+        ChatMessageDto chatMessageDto = chatService.findByMsgId(msgId);
+
+        if(chatMessageDto == null) {
+            rq.historyBack("존재하지 않는 채팅입니다.");
+            return;
+        }
+
+        long roomId = chatMessageDto.getRoomId();
+
+        chatService.deleteMessage(msgId);
+
+        rq.replace("/usr/chat/room/%d".formatted(roomId), "%d번 메세지가 삭제되었습니다.".formatted(msgId));
     }
 }

@@ -45,11 +45,29 @@ public class ChatMessageRepository {
                 .collect(Collectors.toList());
     }
 
+    public ChatMessageDto findByMsgId(long msgId) {
+        for(ChatMessageDto chatMessage : datum) {
+            if(chatMessage.getId() == msgId) {
+                return chatMessage;
+            }
+        }
+        return null;
+    }
+
     public List<ChatMessageDto> findByRoomIdGreaterThan(long roomId, long fromId) {
         return datum
                 .stream()
                 .filter(chatMessageDto -> chatMessageDto.getRoomId() == roomId)
                 .filter(chatMessageDto -> chatMessageDto.getId() > fromId)
                 .collect(Collectors.toList());
+    }
+
+    public void deleteMessage(long msgId) {
+        ChatMessageDto chatMessageDto = findByMsgId(msgId);
+
+        if(chatMessageDto == null) {
+            return;
+        }
+        datum.remove(chatMessageDto);
     }
 }
