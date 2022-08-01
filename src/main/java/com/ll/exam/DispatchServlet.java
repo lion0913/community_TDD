@@ -73,6 +73,9 @@ public class DispatchServlet extends HttpServlet {
                     case "/usr/article/delete":
                         articleController.doDelete(rq);
                         break;
+                    case "/usr/chat/deleteRoom":
+                        chatController.deleteRoom(rq);
+                        break;
                 }
         }
     }
